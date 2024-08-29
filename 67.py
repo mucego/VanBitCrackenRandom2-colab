@@ -29,11 +29,11 @@ def delete_checkpoint():
     if os.path.exists('checkpoint.pkl'):
         os.remove('checkpoint.pkl')
 
-def run_vbcr(start_keyspace, end_keyspace):
+def run_VBCrLinux(start_keyspace, end_keyspace):
     output_filename = f'{start_keyspace[:3]}.txt'  # Generate the output filename based on the start keyspace
-    command = f'VBCr.exe -t 4 -gpu -gpuId 0 -begr {start_keyspace} -endr {end_keyspace} -o {output_filename} -drk 1 -dis 1 -r 30000 -c 1BY8GQb'
+    command = f'./VBCrLinux -t 16 -gpu -gpuId 0 -begr {start_keyspace} -endr {end_keyspace} -o {output_filename} -drk 1 -dis 1 -r 30000 -b 1MVDYgVaSN6iKKEsbzRUAYFrYJadLYZvvZ'
 
-    process = subprocess.Popen(command, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
+    process = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
     time.sleep(60)  # Wait for 60 seconds
     os.kill(process.pid, signal.CTRL_BREAK_EVENT)  # Send CTRL_BREAK_EVENT signal to terminate the process group
     process.wait()  # Wait for the process to exit
@@ -50,7 +50,7 @@ while True:
         increment = '100000000000000'  # Increment value
        
         while int(end_keyspace, 16) <= int('800ffffffffffffff', 16):  # Continue until the ending keyspace value is reached
-            run_vbcr(start_keyspace, end_keyspace)
+            run_VBCrLinux(start_keyspace, end_keyspace)
             start_keyspace = hex(int(end_keyspace, 16) + 1)[2:]  # Increment the start keyspace value
             end_keyspace = hex(int(start_keyspace, 16) + int(increment, 16) - 1)[2:]  # Increment the end keyspace value correctly
 
