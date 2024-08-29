@@ -1,3 +1,17 @@
+#comando usar no google colab
+01- open new notbook 
+02- open line cod
+03- copi this comand
+from google.colab import drive
+drive.mount('/content/drive')
+!git clone https://github.com/mucego/VanBitCrackenRandom2-colab.git
+%cd VanBitCrackenRandom2-colab
+!chmod +x VBCrLinux
+05- after user this comand in new line
+!python 66.py
+06- our used this comand line find puzzele 66
+!./VBCrLinux -t 96 -begr 34000000000000000 -endr 39fffffffffffffff -gpu -g 320,512 -drk 1 -dis 1 -r 48000 -o 66BitChallengeKey.txt -stop 13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so
+
 # VanBitCrackenRandom2
 The Newest Version of VanBitCrackenRandom...VBCr
 
