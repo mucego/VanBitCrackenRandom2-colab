@@ -1,0 +1,1 @@
+!./VBCrLinux -t 0 -gpu -gpuId 0 -begr 20000000000000000 -endr 3FFFFFFFFFFFFFFFF -r 2400000 -o 66BitChallengeKey.txt 13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so
