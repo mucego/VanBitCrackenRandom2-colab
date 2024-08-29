@@ -25,11 +25,11 @@ def load_checkpoint():
     else:
         return '20000000000000000', '20010000000000000'
 
-def run_vbcr(start_keyspace, end_keyspace):
+def run_VBCrLinux(start_keyspace, end_keyspace):
     output_filename = f'{start_keyspace[:3]}.txt'  # Generate the output filename based on the start keyspace
-    command = f'VBCr.exe -t 0 -gpu -gpuId 0 -begr {start_keyspace} -endr {end_keyspace} -o {output_filename} -drk 1 -dis 1 -r 70000 -c 13zb1hQbW'
+    command = f'./VBCrLinux -t 12 -gpu -g 544,256 -gpuId 0 -begr {start_keyspace} -endr {end_keyspace} -o {output_filename} -drk 1 -dis 1 -r 30000 -b 13zb1hQ13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'
 
-    process = subprocess.Popen(command, shell=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
+    process = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
     time.sleep(245)  # Wait for 345 seconds
     os.kill(process.pid, signal.CTRL_BREAK_EVENT)  # Send CTRL_BREAK_EVENT signal to terminate the process group
     process.wait()  # Wait for the process to exit
@@ -53,7 +53,7 @@ while True:
             new_end_keyspace = hex(int(start_keyspace, 16) + int(increment, 16) - 1)[2:]
             end_keyspace = min(new_end_keyspace, '3ffffffffffffffff')  # Choose the smaller value between the new end keyspace and the maximum value
 
-            run_vbcr(start_keyspace, end_keyspace)
+            run_VBCrLinux(start_keyspace, end_keyspace)
             start_keyspace = hex(int(end_keyspace, 16) + 1)[2:]
 
             # Save the checkpoint every minute
@@ -73,7 +73,7 @@ start_keyspace, end_keyspace = load_checkpoint()
 
 # Continue program execution from the last saved checkpoint
 while True:
-    run_vbcr(start_keyspace, end_keyspace)
+    run_VBCrLinux(start_keyspace, end_keyspace)
     start_keyspace = hex(int(end_keyspace, 16) + 1)[2:]
     if int(start_keyspace, 16) > int('3ffffffffffffffff', 16):
         start_keyspace = '20000000000000000'  # Loop back to the beginning
