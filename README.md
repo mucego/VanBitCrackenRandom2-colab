@@ -4,10 +4,9 @@
 
 02- open line cod
 
-03- copi this comand
+03- copy this comand
 
 from google.colab import drive
-
 drive.mount('/content/drive')
 !git clone https://github.com/mucego/VanBitCrackenRandom2-colab.git
 %cd VanBitCrackenRandom2-colab
